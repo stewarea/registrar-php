@@ -45,20 +45,38 @@
         return $app['twig']->render('students.html.twig', array('students' => Students::getAll()));
     });
 
-    $app->get("/students/{id}", function($id) use ($app) {
-        $student = Students::find($id);
-        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses()));
-    });
+    // $app->get("/students/{id}", function($id) use ($app) {
+    //     $student = Students::find($id);
+    //     return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses()));
+    // });
 
     $app->get("/students/{id}", function($id) use ($app) {
         $student = Students::find($id);
-        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses(), 'courses2' => $student->getNonCourses()));
+        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses(), 'courses2' => $student->getNonCourses(), 'all_courses' => Courses::getAll()));
     });
 
     $app->get("/courses/{id}", function($id) use ($app) {
         $course = Courses::find($id);
-        return $app['twig']->render('course.html.twig', array('course' => $course, 'students' => $course->getStudents(), 'students2' => $course->getNonStudents()));
+        return $app['twig']->render('course.html.twig', array('course' => $course, 'students' => $course->getStudents(), 'students2' => $course->getNonStudents(), 'all_students' => Students::getAll()));
     });
+
+    $app->post("/course/{id}", function ($id) use ($app){
+        $course = Courses::find($id);
+        $new_student = Students::find($_POST['student_id']);
+        $course ->addStudent($new_student);
+
+        return $app['twig']->render('course.html.twig', array('course' => $course, 'students' => $course->getStudents(), 'students2' => $course->getNonStudents(), 'all_students' => Students::getAll()));
+    });
+
+    $app->post("/student/{id}", function ($id) use ($app){
+        $student = Students::find($id);
+        $new_course = Courses::find($_POST['course_id']);
+        $student->addCourses($new_course);
+
+        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses(), 'courses2' => $student->getNonCourses(), 'all_courses' => Courses::getAll()));
+    });
+
+
 
 
     return $app;

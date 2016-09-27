@@ -114,17 +114,22 @@
         }
         function getNonStudents()
         {
-            $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE courses.id != {$this->getId()};");
+            // $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE courses.id != {$this->getId()};");
+            $allStudents = Students::getAll();
+            $enrolledStudents = $this->getStudents();
 
-            $students = array();
-            foreach($returned_students as $student) {
-                $id = $student['id'];
-                $name = $student['name'];
-                $major = $student['major'];
-                $new_student = new Students($name, $major, $id);
-                array_push($students, $new_student);
+            $nonStudents = array();
+            foreach($allStudents as $student) {
+                if(!in_array($student, $enrolledStudents))
+                    {
+                    $id = $student->getId();
+                    $name = $student->getName();
+                    $major = $student->getMajor();
+                    $new_student = new Students($name, $major, $id);
+                    array_push($nonStudents, $new_student);
+                }
             }
-            return $students;
+            return $nonStudents;
         }
 
 

@@ -132,6 +132,30 @@
             $this->assertEquals([$test_Student], $result);
         }
 
+        function test_NonStudents()
+        {
+            $name = "History";
+            $start = "12:00:00";
+            $department = 1;
+            $test_Course = new Courses($name, $start, $department);
+            $test_Course->save();
+
+            $name = "Bob Jones";
+            $major = 2;
+            $test_Student = new Students($name, $major);
+            $test_Student->save();
+
+            $name2 = "Rob Bones";
+            $major2 = 3;
+            $test_Student2 = new Students($name2, $major2);
+            $test_Student2->save();
+
+            $test_Course->addStudent($test_Student);
+
+            $result = $test_Course->getNonStudents();
+            $this->assertEquals([$test_Student2], $result);
+        }
+
 
 
 

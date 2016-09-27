@@ -6,7 +6,7 @@
     <h1>{{ course.getName }}</h1>
 
     {% if students is not empty %}
-        <p>Here are the tasks for this category:</p>
+        <p>Here are the Students for this Course:</p>
         <ul>
             {% for student in students %}
                 <li>Name: {{ student.getName }} Major: {{ student.getMajor }}</li>
@@ -16,18 +16,16 @@
 
     <h4>Add a student to this course:</h4>
 
-    <form action='/add_student' method='post'>
+    <form action='/course/{{ course.getId }}' method='post'>
         <input id="course_id" name="course_id" type="hidden" value="{{ course.getId }}">
         <label for="student_id">Select a student</label>
         <select id='student_id' name='student_id' type='text'>
-          {% for student in all_students %}
-            <option value="{{ student.getId }}"> {{ task.getName }} </option>
+          {% for student in students2 %}
+            <option value="{{ student.getId }}"> {{ student.getName }} </option>
           {% endfor %}
         </select>
         <button type='submit'>Add Student</button>
     </form>
-
-    <p><a href="/categories/{{ category.getId }}/edit">Edit this category</a></p>
 
     <p><a href='/'>Home</a></p>
 </body>

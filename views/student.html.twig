@@ -5,22 +5,22 @@
 <body>
     <h1>{{ student.getName }}</h1>
 
-    {% if coursess is not empty %}
+    {% if courses is not empty %}
         <p>Here are the coureses for this student:</p>
         <ul>
             {% for course in courses %}
-                <li>Name: {{ course.getName }} Start: {{ course.getStart }}</li>
+                <li>Course: {{ course.getName }} Start: {{ course.getStart }}</li>
             {% endfor %}
         </ul>
     {% endif %}
 
     <h4>Add a Course for this student:</h4>
 
-    <form action='/add_course' method='post'>
+    <form action='/student/{{ student.getId }}' method='post'>
         <input id="student_id" name="student_id" type="hidden" value="{{ student.getId }}">
         <label for="course_id">Select a course</label>
         <select id='course_id' name='course_id' type='text'>
-          {% for course in all_courses %}
+          {% for course in courses2 %}
             <option value="{{ course.getId }}"> {{ course.getName }} </option>
           {% endfor %}
         </select>
