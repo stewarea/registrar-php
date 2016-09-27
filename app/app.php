@@ -11,7 +11,7 @@
 
     $app['debug'] = true;
 
-    $server = 'mysql:host=localhost;dbname=resgistrar';
+    $server = 'mysql:host=localhost;dbname=registrar';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -20,5 +20,32 @@
         'twig.path' => __DIR__.'/../views'
     ));
 
+    $app->get("/", function () use ($app){
+        return $app['twig']->render('index.html.twig');
+    });
+
+    $app->get("/courses", function () use ($app){
+        return $app['twig']->render('courses.html.twig', array('courses' => Courses::getAll()));
+    });
+
+    $app->post("/courses", function () use ($app){
+        $new_course = new Courses($_POST['name'], $_POST['start'], 1);
+        $new_course->save();
+        // return var_dump($new_course);
+        return $app['twig']->render('courses.html.twig', array('courses' => Courses::getAll()));
+    });
+
+    $app->get("/students", function () use ($app){
+        return $app['twig']->render('students.html.twig', array('students' => Students::getAll()));
+    });
+
+    $app->post("/students", function () use ($app){
+        $new_student = new Students($_POST['name'], $_POST['major']);
+        $new_student->save();
+        return $app['twig']->render('students.html.twig', array('students' => Students::getAll()));
+    });
+
+
+    return $app;
 
     ?>

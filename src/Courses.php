@@ -7,7 +7,7 @@
     private $department;
 
 
-    function __construct($name, $start, $department, $id = null)
+    function __construct($name, $start, $department = null, $id = null)
       {
         $this->id = $id;
         $this->name = $name;
@@ -100,7 +100,7 @@
 
         function getStudents()
         {
-            $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id);");
+            $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE courses.id = {$this->getId()};");
 
             $students = array();
             foreach($returned_students as $student) {

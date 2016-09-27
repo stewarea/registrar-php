@@ -8,7 +8,7 @@
     require_once "src/Courses.php";
     require_once 'src/Students.php';
 
-    $server = 'mysql:host=localhost;dbname=registrar_test';
+    $server = 'mysql:host=localhost;dbname=registrar';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);

@@ -96,7 +96,7 @@
 
         function getCourses()
         {
-            $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id);");
+            $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE students.id = {$this->getId()};");
 
             $courses = array();
             foreach($returned_courses as $course) {
