@@ -27,7 +27,9 @@
         <button type='submit'>Add Course</button>
     </form>
 
-
-    <p><a href='/'>Home</a></p>
+    <form action="/upload_file" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit" name="btn-upload">upload</button>
+    </form>    <p><a href='/'>Home</a></p>
 </body>
 </html>

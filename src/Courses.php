@@ -114,7 +114,6 @@
         }
         function getNonStudents()
         {
-            // $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE courses.id != {$this->getId()};");
             $allStudents = Students::getAll();
             $enrolledStudents = $this->getStudents();
 
