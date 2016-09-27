@@ -4,13 +4,15 @@
     private $id;
     private $name;
     private $major;
+    private $photo;
 
 
-    function __construct($name, $major, $id = null)
+    function __construct($name, $major, $photo, $id = null)
       {
         $this->id = $id;
         $this->name = $name;
         $this->major = $major;
+        $this->photo = $photo;
       }
 
       function setName($new_name)
@@ -43,15 +45,25 @@
                 $this->major =  $new_major;
             }
 
-            function getMajor()
-            {
-                return $this->major;
-            }
+        function getMajor()
+        {
+            return $this->major;
+        }
+
+        function getPhoto()
+        {
+            return $this->photo;
+        }
+
+        function setPhoto($new_photo)
+        {
+            return $this->photo = $new_photo;
+        }
 
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO students (name, major) VALUES ('{$this->getName()}', {$this->getMajor()});");
+            $GLOBALS['DB']->exec("INSERT INTO students (name, major) VALUES ('{$this->getName()}', {$this->getMajor()}, '{$this->getPhoto()}');");
             $this->id= $GLOBALS['DB']->lastInsertId();
         }
         static function getAll()
@@ -62,7 +74,8 @@
                 $id = $student['id'];
                 $name = $student['name'];
                 $major = $student['major'];
-                $new_student = new Students($name, $major, $id);
+                $photo = $student['photo'];
+                $new_student = new Students($name, $major, $photo, $id);
                 array_push($students, $new_student);
             }
             return $students;
@@ -129,6 +142,7 @@
             }
             return $nonCourses;
         }
+
 
 
 

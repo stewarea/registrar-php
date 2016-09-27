@@ -76,7 +76,7 @@
         return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses(), 'courses2' => $student->getNonCourses(), 'all_courses' => Courses::getAll()));
     });
 
-    $app->post("/upload_file", function () use ($app){
+    $app->post("/upload_file/{id}", function ($id) use ($app){
         if(isset($_POST['btn-upload']))
         {
          $file = rand(1000,100000)."-".$_FILES['file']['name'];
@@ -88,9 +88,7 @@
          move_uploaded_file($file_loc,$folder.$file);
          $GLOBALS['DB']->exec("INSERT INTO tbl_uploads(file,type,size) VALUES('{$file}','{$file_type}','{$file_size}')");
 
-        //  $new_photo = Students->getPhoto();
-        //  $new_photo->save();
-
+         $GLOBALS['DB']->exec("UPDATE students SET photo = '{$file}' WHERE id = {$id};");
         }
 
 

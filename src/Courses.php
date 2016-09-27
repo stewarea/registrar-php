@@ -107,7 +107,8 @@
                 $id = $student['id'];
                 $name = $student['name'];
                 $major = $student['major'];
-                $new_student = new Students($name, $major, $id);
+                $photo = $student['photo'];
+                $new_student = new Students($name, $major, $photo, $id);
                 array_push($students, $new_student);
             }
             return $students;
@@ -124,7 +125,8 @@
                     $id = $student->getId();
                     $name = $student->getName();
                     $major = $student->getMajor();
-                    $new_student = new Students($name, $major, $id);
+                    $photo = $student->getPHoto();
+                    $new_student = new Students($name, $major, $photo, $id);
                     array_push($nonStudents, $new_student);
                 }
             }
