@@ -45,6 +45,21 @@
         return $app['twig']->render('students.html.twig', array('students' => Students::getAll()));
     });
 
+    $app->get("/students/{id}", function($id) use ($app) {
+        $student = Students::find($id);
+        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses()));
+    });
+
+    $app->get("/students/{id}", function($id) use ($app) {
+        $student = Students::find($id);
+        return $app['twig']->render('student.html.twig', array('student' => $student, 'courses' => $student->getCourses(), 'courses2' => $student->getNonCourses()));
+    });
+
+    $app->get("/courses/{id}", function($id) use ($app) {
+        $course = Courses::find($id);
+        return $app['twig']->render('course.html.twig', array('course' => $course, 'students' => $course->getStudents(), 'students2' => $course->getNonStudents()));
+    });
+
 
     return $app;
 

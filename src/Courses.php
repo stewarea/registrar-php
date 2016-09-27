@@ -112,6 +112,20 @@
             }
             return $students;
         }
+        function getNonStudents()
+        {
+            $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM students JOIN courses_students ON (students.id = courses_students.student_id) JOIN courses ON (courses.id = courses_students.course_id) WHERE courses.id != {$this->getId()};");
+
+            $students = array();
+            foreach($returned_students as $student) {
+                $id = $student['id'];
+                $name = $student['name'];
+                $major = $student['major'];
+                $new_student = new Students($name, $major, $id);
+                array_push($students, $new_student);
+            }
+            return $students;
+        }
 
 
 
