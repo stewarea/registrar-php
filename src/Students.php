@@ -63,7 +63,7 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO students (name, major) VALUES ('{$this->getName()}', {$this->getMajor()}, '{$this->getPhoto()}');");
+            $GLOBALS['DB']->exec("INSERT INTO students (name, major, photo) VALUES ('{$this->getName()}', {$this->getMajor()}, '{$this->getPhoto()}');");
             $this->id= $GLOBALS['DB']->lastInsertId();
         }
         static function getAll()

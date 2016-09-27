@@ -15,10 +15,13 @@
     {% endif %}
 
     <form action='/students' method='post'>
+
         <label for='name'>Student Name</label>
         <input id='name' name='name' type='text'>
         <label for='major'>Enter Major</label>
         <input id='major' name='major' type='number'>
+        <input type="hidden" name="photo" id="photo">
+
 
         <button type='submit'>Add Student</button>
     </form>

@@ -40,7 +40,7 @@
     });
 
     $app->post("/students", function () use ($app){
-        $new_student = new Students($_POST['name'], $_POST['major']);
+        $new_student = new Students($_POST['name'], $_POST['major'], $_POST['photo']);
         $new_student->save();
         return $app['twig']->render('students.html.twig', array('students' => Students::getAll()));
     });

@@ -4,8 +4,11 @@
 </head>
 <body>
     <h1>{{ student.getName }}</h1>
-    <img src="/uploads/{{ student.getPhoto }}">
-
+    {% if student.photo is empty %}
+        <img src="/uploads/images.jpeg">
+        {% else %}
+            <img src="/uploads/{{ student.getPhoto }}">
+    {% endif %}
     {% if courses is not empty %}
         <p>Here are the coureses for this student:</p>
         <ul>
